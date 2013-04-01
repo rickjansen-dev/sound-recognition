@@ -1,68 +1,44 @@
 /*
  * main.c
  * 
- * Copyright 2013 Rick Jansen <rick@pholus>
- * 
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
- * MA 02110-1301, USA.
- * 
+ * Author: Rick Jansen
+ * Last Modified: 1-apr-2013 23:55
  * 
  */
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 
-#define BUF_SIZE 1024
+#include "recog.h"
 
-char buffer[BUF_SIZE];
-size_t contentSize = 1;
+#define SAMPLE_RATE 8000
+#define BIT_DEPTH 16
+#define SAMPLE_SIZE 1
+#define BUF_SIZE 8192
 
+int buffer[BUF_SIZE];
+//int* buffer_pointer = &buffer[0];
 
+void print_buffer()
+{
+	for (int i=0; i<BUF_SIZE; i++)
+	{
+		
+		printf("%d ",buffer[i]);
+	}
+}
 
 int main(int argc, char **argv)
 {
-	char *content = malloc(sizeof(char) * BUF_SIZE);
-	if(content == NULL)
+	while(read(STDIN_FILENO, buffer, BUF_SIZE))
 	{
-		perror("Failed to allocate content");
-		exit(1);
-	}
-	content[0] = '\0'; // make null-terminated
-	while(fgets(buffer, BUF_SIZE, stdin))
-	{
-		char *old = content;
-		contentSize += strlen(buffer);
-		content = realloc(content, contentSize);
-		if(content == NULL)
-		{
-			perror("Failed to reallocate content");
-			free(old);
-			exit(2);
-		}
-		strcat(content, buffer);
+		print_buffer();
+		break;
 	}
 	
-	printf("The buffer contains: %s\n",buffer);
-
-	if(ferror(stdin))
-	{
-		free(content);
-		perror("Error reading from stdin.");
-		exit(3);
-	}	
+	printf("\nFinished\n");
 	
 	return 0;
 }
