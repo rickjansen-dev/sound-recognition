@@ -10,6 +10,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <stdint.h>
 
 #include "recog.h"
 
@@ -18,12 +19,12 @@
 #define SAMPLE_SIZE 1
 #define BUF_SIZE 8192
 
-int buffer[BUF_SIZE];
+uint8_t buffer[BUF_SIZE];
 //int* buffer_pointer = &buffer[0];
 
-void print_buffer()
+void print_buffer(ssize_t bytesread)
 {
-	for (int i=0; i<BUF_SIZE; i++)
+	for (int i=0; i<bytesread; i++)
 	{
 		
 		printf("%d ",buffer[i]);
@@ -32,9 +33,10 @@ void print_buffer()
 
 int main(int argc, char **argv)
 {
-	while(read(STDIN_FILENO, buffer, BUF_SIZE))
+	ssize_t bytesread;
+	while((bytesread = read(STDIN_FILENO, buffer, BUF_SIZE)))
 	{
-		print_buffer();
+		print_buffer(bytesread);
 		break;
 	}
 	

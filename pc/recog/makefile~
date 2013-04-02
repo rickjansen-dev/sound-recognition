@@ -1,0 +1,15 @@
+# define the compiler to use. only tested on GCC
+CC=gcc
+# define the compiler flags to use. Again, only tested for GCC
+CFLAGS=-c -Wall -std=c99
+
+all: recog
+
+recog: main.o
+	$(CC) main.o -o recog
+
+main.o: main.c
+	$(CC) $(CFLAGS) main.c
+
+clean:
+	rm -rf *o recog
