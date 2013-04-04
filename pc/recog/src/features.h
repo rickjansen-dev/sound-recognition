@@ -5,7 +5,7 @@
 
 #include "recog.h"
 
-uint8_t time_hzcrr();
+uint8_t time_hzcrr(int median);
 uint8_t time_lster();
 
 #endif

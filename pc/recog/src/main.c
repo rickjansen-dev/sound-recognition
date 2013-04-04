@@ -7,17 +7,20 @@
  */
 
 #include "recog.h"
+#include "features.h"
 
 int main(int argc, char **argv)
 {
 	ssize_t bytesread;
 	while((bytesread = read(STDIN_FILENO, buffer, BUF_SIZE)))
 	{
-		print_buffer(bytesread);
+		//print_buffer(bytesread);
 		break;
 	}
 	
-	printf("\nFinished\n");
+	uint8_t hzcrr = time_hzcrr(127);
+
+	printf("\nFinished. HZCRR = %d\n",hzcrr);
 	
 	return 0;
 }

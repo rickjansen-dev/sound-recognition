@@ -19,8 +19,8 @@
 #include <stdint.h>
 
 extern uint8_t buffer[BUF_SIZE];
-extern uint8_t zcr[FRAMES_PER_SAMPLE];
-extern uint8_t ste[FRAMES_PER_SAMPLE];
+extern int zcr[FRAMES_PER_SAMPLE];
+extern int ste[FRAMES_PER_SAMPLE];
 
 void print_buffer(ssize_t bytesread);
  
