@@ -3,6 +3,9 @@
 *.lo
 *.o
 
+# Compiled Programs (in bin-directories, for all sub-projects)
+*/bin/*
+
 # Compiled Dynamic libraries
 *.so
 *.dylib
