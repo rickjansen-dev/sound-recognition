@@ -6,6 +6,6 @@
 #include "recog.h"
 
 uint8_t time_hzcrr();
-uint8_t time_hster();
+uint8_t time_lster();
 
 #endif
