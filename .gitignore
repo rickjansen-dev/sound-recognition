@@ -4,7 +4,7 @@
 *.o
 
 # Compiled Programs (in bin-directories, for all sub-projects)
-*/bin/*
+*/bin/
 
 # Compiled Dynamic libraries
 *.so
