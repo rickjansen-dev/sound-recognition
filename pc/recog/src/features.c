@@ -61,6 +61,16 @@ uint8_t time_hzcrr(int median)
  */
 uint8_t time_lster()
 {
+	// for each frame
+	// 		determine avg(values)
+
+	// determine avg(ste)
+	// for each ste
+	//		determine if ste < avg(ste)
+
+	// output ratio
+
+
 	return 0;
 }
 

@@ -1,5 +1,6 @@
 #include "recog.h"
 
+// initialize buffers.
 uint8_t buffer[BUF_SIZE];
 int zcr[FRAMES_PER_SAMPLE];
 int ste[FRAMES_PER_SAMPLE];

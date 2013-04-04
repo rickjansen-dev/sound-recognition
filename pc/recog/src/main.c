@@ -11,6 +11,7 @@
 
 int main(int argc, char **argv)
 {
+	// start the input processor
 	ssize_t bytesread;
 	while((bytesread = read(STDIN_FILENO, buffer, BUF_SIZE)))
 	{

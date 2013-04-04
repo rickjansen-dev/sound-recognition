@@ -15,8 +15,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
 #include <stdint.h>
+
+// this makes it less cross-plaform, using unix unistd & time headers
+#include <unistd.h>
+#include <time.h>
 
 extern uint8_t buffer[BUF_SIZE];
 extern int zcr[FRAMES_PER_SAMPLE];
