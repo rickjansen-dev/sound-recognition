@@ -1,6 +1,6 @@
 %/media/rick/8156-6047/audio/sounds/
 
-function ret = recog(filename,centervalue)
+function [samples,hzcrr,lster] = recog(filename,centervalue)
 
 [y, freq, bits] = wavread(filename,'native');
 
@@ -22,6 +22,8 @@ y2 = zeros(number_of_samples);
 
 for i=1:number_of_samples
    y_frame = y_1sec_sample(((i-1)*framesize+1): i*framesize);
+   
+   
    
    lastposition = 0;
    currentposition = 0;
@@ -54,6 +56,7 @@ set(H2,'LineWidth',2,'Color','Red');
 legend('Sample-data','ZCR per frame');
 
 %bereken HZCRR
+%fprintf('Total zcr: %d\n',sum(y2));
 mean_zcr = mean(y2);
 avg_zcr = mean_zcr(1);
 higher = 0;
@@ -74,6 +77,6 @@ fprintf('Gemiddelde ZCR: %3.4f\nHoger dan gem: %d, Lager dan gem: %d\nHZCRR = %1
 
 %bereken H(STE)R
 
+lster = 0;
 
-
-ret = hzcrr;
+samples = y;
