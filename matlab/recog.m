@@ -19,11 +19,15 @@ framesize = freq/number_of_samples;
 
 x2 = 1:framesize:freq;
 y2 = zeros(number_of_samples);
+y3 = zeros(number_of_samples);
 
 for i=1:number_of_samples
    y_frame = y_1sec_sample(((i-1)*framesize+1): i*framesize);
    
+   y_frame_double = cast(y_frame, 'double');
+   frame_ste = sum(abs(y_frame_double).^2); % norm(y_frame_double,Inf);
    
+   %fprintf('Norm of frame %d: %d\n',i,frame_ste);
    
    lastposition = 0;
    currentposition = 0;
@@ -46,19 +50,31 @@ for i=1:number_of_samples
    end
    
    y2(i) = frame_zcr;
+   y3(i) = frame_ste;
    
    %fprintf('Frame %d: %d\n',i,frame_zcr)
 end
+
+figure('Name','Feature: ZCR','NumberTitle','off')
 
 [AX,H1,H2] = plotyy(x,y,x2,y2);
 
 set(H2,'LineWidth',2,'Color','Red');
 legend('Sample-data','ZCR per frame');
 
+figure('Name','Feature: STE','NumberTitle','off')
+
+[AX,H1,H2] = plotyy(x,y,x2,y3);
+
+set(H2,'LineWidth',2,'Color','Green');
+legend('Sample-data','STE per frame');
+
+
 %bereken HZCRR
 %fprintf('Total zcr: %d\n',sum(y2));
 mean_zcr = mean(y2);
 avg_zcr = mean_zcr(1);
+%avg_zcr = sum(y2,2) / size(y2,2);
 higher = 0;
 lower = 0;
 
@@ -75,7 +91,25 @@ hzcrr = higher/lower;
 fprintf('Gemiddelde ZCR: %3.4f\nHoger dan gem: %d, Lager dan gem: %d\nHZCRR = %1.2f\n',avg_zcr,higher,lower,hzcrr);
 
 
-%bereken H(STE)R
+%bereken L(STE)R
+
+mean_ste = mean(y3);
+avg_ste = mean_ste(1);
+%avg_ste = sum(y3,2) / size(y3,2);
+higher_ste = 0;
+lower_ste = 0;
+
+for l=1:size(y3,2)
+    if (y3(l) >= avg_ste)
+        higher_ste = higher_ste + 1;
+    else
+        lower_ste = lower_ste + 1;
+    end
+end
+
+lster = lower/higher;
+
+fprintf('Gemiddelde STE: %3.4f\nHoger dan gem: %d, Lager dan gem: %d\nLSTER = %1.2f\n',avg_ste,higher_ste,lower_ste,lster);
 
 lster = 0;
 
