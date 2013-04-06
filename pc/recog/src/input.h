@@ -9,6 +9,6 @@
  *  For PC/Linux this could be stdin (using pipe to get output from sox for example)
  *  For Arduino Due this could be serial port (test/learning stage) or ADC (real life application using microphone)
  */
-void read_input(void);
+size_t read_input(void);
 
 #endif

@@ -5,8 +5,9 @@
  *  This PC/Linux implementation of read_input reads from stdin. Should be combined with utility 'sox'
  *  (by piping raw output to this util)
  */
-void read_input(void)
+size_t read_input(void)
 {
+	size_t result = read(STDIN_FILENO, &current_value, sizeof(current_value));
 
-
+	return result;
 }

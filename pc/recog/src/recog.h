@@ -1,9 +1,11 @@
 #ifndef RECOG_H
 #define RECOG_H
+
+//#define DEBUG 1
  
 // define sample rate, bit depth & sample size (in seconds)
 #define SAMPLE_RATE 8000
-#define BIT_DEPTH 8
+#define BIT_DEPTH 16
 #define SAMPLE_SIZE 1
 #define FRAMES_PER_SAMPLE 40
 
@@ -21,10 +23,14 @@
 #include <unistd.h>
 #include <time.h>
 
-extern uint8_t buffer[BUF_SIZE];
+extern int16_t buffer[BUF_SIZE];
+extern int32_t buffer_index;
 extern int zcr[FRAMES_PER_SAMPLE];
 extern int ste[FRAMES_PER_SAMPLE];
 
+extern int16_t current_value;
+
 void print_buffer(ssize_t bytesread);
+void buffer_add_current();
  
 #endif

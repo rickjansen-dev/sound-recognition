@@ -4,9 +4,9 @@
  *
  *  Calculates the High Zero Crossing Rate Ratio. The HZCRR is a time-domain feature.
  */
-uint8_t time_hzcrr(int median)
+uint8_t time_hzcrr()
 {
-	uint8_t total_zcr = 0;
+	int total_zcr = 0;
 	for (int i=0; i<FRAMES_PER_SAMPLE; i++)
 	{
 		int sign_current = 2;
@@ -14,10 +14,13 @@ uint8_t time_hzcrr(int median)
 		int frame_zcr = 0;
 
 		int j_start = i*FRAME_SIZE;
-		int j_end = j_start + FRAMES_PER_SAMPLE;
+		int j_end = j_start + FRAME_SIZE;
+#if DEBUG
+		printf("DBG: JSTART: %d, JEND: %d",j_start, j_end);
+#endif
 		for (int j=j_start; j<j_end; j++)
 		{
-			if (buffer[j] >= median)
+			if (buffer[j] >= 0)
 			{
 				sign_current = 1;
 			}
@@ -34,10 +37,17 @@ uint8_t time_hzcrr(int median)
 		}
 		zcr[i] = frame_zcr;
 		total_zcr += frame_zcr;
+#if DEBUG
+		printf("DBG: FRAME_ZCR: %d\n",frame_zcr);
+#endif
 	}
 
-	uint8_t average_zcr = total_zcr / FRAMES_PER_SAMPLE;
+	int average_zcr = total_zcr / FRAMES_PER_SAMPLE;
 
+#if DEBUG
+	printf("DBG: TOTAL_ZCR: %d\n",total_zcr);
+	printf("DBG: AVG_ZCR: %d\n",average_zcr);
+#endif
 	uint8_t total_high = 0;
 	uint8_t total_low = 0;
 	for (int k=0; k<FRAMES_PER_SAMPLE; k++)
