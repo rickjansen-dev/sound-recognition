@@ -3,7 +3,7 @@
 
 #include "recog.h"
 
-/*! \brief Reads from source until nothing is available
+/*! \brief Reads a single value from source
  *
  *  Depending on the platform, this function will read from the for the platform appropriate source.
  *  For PC/Linux this could be stdin (using pipe to get output from sox for example)

@@ -1,9 +1,9 @@
 #include "input.h"
 
-/*! \brief Reads from source (=stdin) until nothing is available
+/*! \brief Reads a single value from source (=stdin)
  *
  *  This PC/Linux implementation of read_input reads from stdin. Should be combined with utility 'sox'
- *  (by piping raw output to this util)
+ *  (by piping raw output to this util). Current version accepts signed 16bit integers (little endian) only.
  */
 size_t read_input(void)
 {
