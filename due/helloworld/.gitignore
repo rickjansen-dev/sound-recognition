@@ -1,0 +1,4 @@
+#ignore binaries & compiled objects
+bin/
+obj/
+doc/
