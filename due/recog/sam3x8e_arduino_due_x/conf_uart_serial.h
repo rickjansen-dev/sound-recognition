@@ -48,6 +48,7 @@
 #define CONF_UART            CONSOLE_UART
 /** Baudrate setting */
 #define CONF_UART_BAUDRATE   115200
+// 110, 150, 300, 1200, 2400, 4800, 9600, 19200, 38400, 57600, 115200, 230400, 460800, 921600
 /** Parity setting */
 #define CONF_UART_PARITY     UART_MR_PAR_NO
 

@@ -36,7 +36,7 @@ int read_input_uart()
 
 	if(!uart_read(CONF_UART, &current_char))
 	{
-		printf("Got %d",current_char);
+		//printf("Got %d",current_char);
 		if (toggle_firstbit == 0)
 		{
 			current_value = 0;
@@ -74,18 +74,19 @@ int main(int argc, char **argv)
 	{
 		if (read_input())
 		{
-			printf("Got %d",current_value);
+			//printf("Got %d",current_value);
 			buffer_add_current();
 			if (buffer_index >= 8000)
 			{
+				puts("1-second sample received.\r\n");
 				uint8_t hzcrr = time_hzcrr();
-				printf("HZCRR = %d/40\n",hzcrr);
+				printf("HZCRR = %d/40\r\n",hzcrr);
 				break;
 			}
 		}
 	}
 
-	puts("FINISHED");
+	puts("Finished. Entering endless loop...\r\n");
 	
 //	uint8_t hzcrr = time_hzcrr(127);
 
