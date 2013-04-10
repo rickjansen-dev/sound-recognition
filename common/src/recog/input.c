@@ -9,6 +9,7 @@ size_t read_input(void)
 {
 	//size_t result = read(STDIN_FILENO, &current_value, sizeof(current_value));
 	size_t result = fread(&current_value, sizeof(current_value), 1, stdin);
+	//uart_read(CONSOLE_UART, &uc_key
 
 	return result;
 }
