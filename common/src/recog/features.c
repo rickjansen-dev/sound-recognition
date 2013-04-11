@@ -71,6 +71,11 @@ uint8_t time_hzcrr()
  */
 uint8_t time_lster()
 {
+	int total_ste = 0;
+	for (int i=0; i<BUF_SIZE; i++)
+	{
+		
+	}
 	// for each frame
 	// 		determine avg(values)
 

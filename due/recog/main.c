@@ -8,7 +8,7 @@
 #include "input.h"
 
 #define STRING_EOL    "\r"
-#define STRING_HEADER "-- Hello World --\r\n" \
+#define STRING_HEADER "-- recog --\r\n" \
 		"-- "BOARD_NAME" --\r\n" \
 		"-- Compiled: "__DATE__" "__TIME__" --"STRING_EOL
 

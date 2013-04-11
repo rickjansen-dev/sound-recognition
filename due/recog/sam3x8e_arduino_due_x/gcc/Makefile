@@ -51,3 +51,10 @@
 #MAKEFILE_PATH = ../../../../../sam/utils/make/Makefile.sam.in
 MAKEFILE_PATH = /home/rick/programming/atmel/asf-3.7.3/sam/utils/make/Makefile.sam.in
 include $(MAKEFILE_PATH)
+
+upload:
+	@echo "Opening serial port at 1200 baud to initiate code upload mode"
+	@stty -F /dev/ttyACM0 1200
+	@echo "Uploading code to FLASH memory"
+	@bossac --port=ttyACM0 -U false -e -w -v -b recog_flash.bin -R
+
