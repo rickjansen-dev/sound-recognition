@@ -32,7 +32,12 @@ int main(int argc, char **argv)
 				//sleep(1);
 				//gettimeofday(&tim, NULL);
 				//suseconds_t t2 = tim.tv_usec - t1;
-				printf("HZCRR = %d/40\nTime taken: ticks\n",hzcrr);
+				printf("HZCRR = %d/40\n",hzcrr);
+				
+				uint8_t lster = time_lster();
+				
+				printf("LSTER = %d/40\n",lster);
+				
 				break;
 			}
 		}

@@ -16,7 +16,7 @@ uint8_t time_hzcrr()
 		int j_start = i*FRAME_SIZE;
 		int j_end = j_start + FRAME_SIZE;
 #if DEBUG
-		printf("DBG: JSTART: %d, JEND: %d",j_start, j_end);
+		printf("DBG: JSTART: %d, JEND: %d\r\n",j_start, j_end);
 #endif
 		for (int j=j_start; j<j_end; j++)
 		{
@@ -38,15 +38,15 @@ uint8_t time_hzcrr()
 		zcr[i] = frame_zcr;
 		total_zcr += frame_zcr;
 #if DEBUG
-		printf("DBG: FRAME_ZCR: %d\n",frame_zcr);
+		//printf("DBG: FRAME_ZCR: %d\n",frame_zcr);
 #endif
 	}
 
 	int average_zcr = total_zcr / FRAMES_PER_SAMPLE;
 
 #if DEBUG
-	printf("DBG: TOTAL_ZCR: %d\n",total_zcr);
-	printf("DBG: AVG_ZCR: %d\n",average_zcr);
+	printf("DBG: TOTAL_ZCR: %d\r\n",total_zcr);
+	printf("DBG: AVG_ZCR: %d\r\n",average_zcr);
 #endif
 	uint8_t total_high = 0;
 	uint8_t total_low = 0;
@@ -71,21 +71,52 @@ uint8_t time_hzcrr()
  */
 uint8_t time_lster()
 {
-	int total_ste = 0;
+	int64_t total_ste = 0;
+	int frame_counter = 0;
+	int frame_index = 0;
+	int64_t frame_ste = 0;
 	for (int i=0; i<BUF_SIZE; i++)
 	{
+		frame_ste += (int64_t)buffer[i] * (int64_t)buffer[i];
 		
+		
+		
+		frame_counter++;
+		if (frame_counter == FRAME_SIZE)
+		{
+#if DEBUG
+			printf("Frame (%d) STE: %lld\r\n",frame_index,frame_ste);
+#endif
+			ste[frame_index] = frame_ste;
+			total_ste += frame_ste;
+			frame_counter = 0;
+			frame_index++;
+			frame_ste = 0;						
+		}
 	}
-	// for each frame
-	// 		determine avg(values)
-
-	// determine avg(ste)
-	// for each ste
-	//		determine if ste < avg(ste)
+	
+	int average_ste = total_ste / FRAMES_PER_SAMPLE;
+#if DEBUG
+	printf("Total STE: %lld, Average STE: %d\r\n",total_ste,average_ste);
+#endif
 
 	// output ratio
+	uint8_t total_high = 0;
+	uint8_t total_low = 0;
+	
+	for (int j=0; j < FRAMES_PER_SAMPLE; j++)
+	{
+		if (ste[j] >= average_ste)
+		{
+			total_high++;
+		}
+		else
+		{
+			total_low++;
+		}
+	}
 
 
-	return 0;
+	return total_high;
 }
 

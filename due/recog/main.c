@@ -81,6 +81,8 @@ int main(int argc, char **argv)
 				puts("1-second sample received.\r\n");
 				uint8_t hzcrr = time_hzcrr();
 				printf("HZCRR = %d/40\r\n",hzcrr);
+				uint8_t lster = time_lster();				
+				printf("LSTER = %d/40\n",lster);
 				break;
 			}
 		}

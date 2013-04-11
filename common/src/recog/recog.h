@@ -1,7 +1,7 @@
 #ifndef RECOG_H
 #define RECOG_H
 
-//#define DEBUG 1
+#define DEBUG 1
  
 // define sample rate, bit depth & sample size (in seconds)
 #define SAMPLE_RATE 8000
