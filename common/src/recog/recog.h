@@ -18,10 +18,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdint.h>
-
-// this makes it less cross-plaform, using unix unistd & time headers
-//#include <unistd.h>
-//#include <time.h>
+#include <time.h>
 
 extern int16_t buffer[BUF_SIZE];
 extern int32_t buffer_index;
