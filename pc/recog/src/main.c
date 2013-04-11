@@ -16,7 +16,7 @@ int main(int argc, char **argv)
 	//struct timeval tim;
 
 
-	printf("Start time: %d", t1);
+	//printf("Start time: %d", t1);
 
 	// start the input processor
 	while (1)
@@ -32,7 +32,7 @@ int main(int argc, char **argv)
 				//sleep(1);
 				//gettimeofday(&tim, NULL);
 				//suseconds_t t2 = tim.tv_usec - t1;
-				printf("HZCRR = %d/40\nTime taken: %u ticks\n",hzcrr,t2);
+				printf("HZCRR = %d/40\nTime taken: ticks\n",hzcrr);
 				break;
 			}
 		}
