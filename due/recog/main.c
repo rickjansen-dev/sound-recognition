@@ -30,32 +30,6 @@ static void configure_console(void)
 	uart_enable_rx(CONF_UART);
 }
 
-int read_input_uart()
-{
-	uint8_t current_char = 0;
-
-	if(!uart_read(CONF_UART, &current_char))
-	{
-		//printf("Got %d",current_char);
-		if (toggle_firstbit == 0)
-		{
-			current_value = 0;
-			current_value |= current_char & 0xFF;
-    			current_value <<= 8;
-			toggle_firstbit++;
-			return 0;
-		} 
-		else 
-		{
-			current_value |= current_char & 0xFF;
-			return 1;
-		}
-	}
-
-	return 0;
-}
-
-
 int main(int argc, char **argv)
 {
 	/* Initialize the SAM system */
@@ -82,8 +56,9 @@ int main(int argc, char **argv)
 				uint8_t hzcrr = time_hzcrr();
 				printf("HZCRR = %d/40\r\n",hzcrr);
 				uint8_t lster = time_lster();				
-				printf("LSTER = %d/40\n",lster);
-				break;
+				printf("LSTER = %d/40\r\n",lster);
+				
+				buffer_clear();
 			}
 		}
 	}

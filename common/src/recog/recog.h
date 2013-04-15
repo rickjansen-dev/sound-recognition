@@ -1,7 +1,7 @@
 #ifndef RECOG_H
 #define RECOG_H
 
-#define DEBUG 1
+#define DEBUG 0
  
 // define sample rate, bit depth & sample size (in seconds)
 #define SAMPLE_RATE 8000
@@ -22,11 +22,10 @@
 
 extern int16_t buffer[BUF_SIZE];
 extern int32_t buffer_index;
-extern int zcr[FRAMES_PER_SAMPLE];
-extern int ste[FRAMES_PER_SAMPLE];
 
 extern int16_t current_value;
 
-void buffer_add_current();
+void buffer_add_current(void);
+void buffer_clear(void);
  
 #endif

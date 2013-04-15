@@ -1,10 +1,15 @@
 #include "features.h"
 
+// initialize feature-buffers
+int zcr[FRAMES_PER_SAMPLE];
+int ste[FRAMES_PER_SAMPLE];
+
 /*! \brief Calculates HZCRR
  *
  *  Calculates the High Zero Crossing Rate Ratio. The HZCRR is a time-domain feature.
+ *  Does not modify the current buffer.
  */
-uint8_t time_hzcrr()
+uint8_t time_hzcrr(void)
 {
 	int total_zcr = 0;
 	for (int i=0; i<FRAMES_PER_SAMPLE; i++)
@@ -68,8 +73,9 @@ uint8_t time_hzcrr()
 /*! \brief Calculates LSTER
  *
  *  Calculates the Low Short-Time Engery Ratio. The LSTER is a time-domain feature.
+ *  Does not modify the current buffer.
  */
-uint8_t time_lster()
+uint8_t time_lster(void)
 {
 	int64_t total_ste = 0;
 	int frame_counter = 0;

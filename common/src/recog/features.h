@@ -5,7 +5,10 @@
 
 #include "recog.h"
 
-uint8_t time_hzcrr();
-uint8_t time_lster();
+extern int zcr[FRAMES_PER_SAMPLE];
+extern int ste[FRAMES_PER_SAMPLE];
+
+uint8_t time_hzcrr(void);
+uint8_t time_lster(void);
 
 #endif
