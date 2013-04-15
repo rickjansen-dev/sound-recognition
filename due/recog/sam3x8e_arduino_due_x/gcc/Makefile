@@ -49,7 +49,10 @@
 # Include the common Makefile, which will also include the project specific
 # config.mk file.
 #MAKEFILE_PATH = ../../../../../sam/utils/make/Makefile.sam.in
-MAKEFILE_PATH = /home/rick/programming/atmel/asf-3.7.3/sam/utils/make/Makefile.sam.in
+ASF_PATH = /home/rick/programming/atmel/asf-3.7.3
+
+
+MAKEFILE_PATH = $(ASF_PATH)/sam/utils/make/Makefile.sam.in
 include $(MAKEFILE_PATH)
 
 upload:
