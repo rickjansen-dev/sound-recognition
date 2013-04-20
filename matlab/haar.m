@@ -6,6 +6,7 @@ Wfilters = [2,4,6,8,10,12,14,16,18,20];
 alpha = 1;
 frames = 40;
 framesize = samples/frames;
+Wshift = 0;
 
 fprintf('Selected frame size: %d', framesize);
 
@@ -24,6 +25,25 @@ for i=1:size(samples,1)
    IS(i) = Icurrent;
 end
 
+xm = zeros(frames);
+t=0;
+
+for j=1:frames
+   xmcurrent = zeros(length(Wfilters));
+   for wf=1:length(Wfilters)
+       Wshift = alpha * Wfilters(wf);
+       xmcurrent_filter = 0;
+       for n=1:((framesize-Wfilters(wf))/Wshift + 1)
+           t = j*framesize + n;
+           onefiltervalue = IS(t+Wfilters(wf)) - 2 * IS(t+Wfilters(wf)/2) + IS(t);
+           xmcurrent_filter = xmcurrent_filter + onefiltervalue;
+       end
+       fprintf('filter wf = %d, value: %d\n',wf,xmcurrent_filter);
+   end
+   fprintf('frame %d\n', j);
+   xmcurrent
+   xm(j) = xmcurrent;
+end
 % for each frame, do:
     % -calc IS values=C only-
     % for each filter, do:
