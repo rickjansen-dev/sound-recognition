@@ -15,11 +15,13 @@ x = [1:size(y,2)];
 number_of_samples = 40;
 
 y_1sec_sample = y(1:freq);
-framesize = freq/number_of_samples;
+framesize_broken = freq/number_of_samples;
 
-x2 = 1:framesize:freq;
-y2 = zeros(number_of_samples);
-y3 = zeros(number_of_samples);
+x2 = 1:framesize_broken:freq;
+y2 = zeros(number_of_samples,1);
+y3 = zeros(number_of_samples,1);
+
+framesize = floor(framesize_broken);
 
 for i=1:number_of_samples
    y_frame = y_1sec_sample(((i-1)*framesize+1): i*framesize);
@@ -54,21 +56,21 @@ for i=1:number_of_samples
    
    %fprintf('Frame %d: %d\n',i,frame_zcr)
 end
-
+%%
 figure('Name','Feature: ZCR','NumberTitle','off')
 
 [AX,H1,H2] = plotyy(x,y,x2,y2);
-
+%%
 set(H2,'LineWidth',2,'Color','Red');
 legend('Sample-data','ZCR per frame');
 
 figure('Name','Feature: STE','NumberTitle','off')
 
 [AX,H1,H2] = plotyy(x,y,x2,y3);
-
+%%
 set(H2,'LineWidth',2,'Color','Green');
 legend('Sample-data','STE per frame');
-
+%%
 
 %bereken HZCRR
 %fprintf('Total zcr: %d\n',sum(y2));
