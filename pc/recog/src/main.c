@@ -1,6 +1,7 @@
 
 #include "../../../common/src/recog/recog.h"
 #include "../../../common/src/recog/features.h"
+#include "../../../common/src/recog/haar.h"
 #include "../../../common/src/recog/input.h"
 
 
@@ -21,6 +22,8 @@ int main(int argc, char **argv)
 				uint8_t lster = time_lster();
 				
 				printf("LSTER = %d/40\r\n",lster);
+				
+				haar_process();
 				
 				buffer_clear();
 				
