@@ -1,8 +1,10 @@
 %/media/rick/8156-6047/audio/sounds/
 
-function [samples,hzcrr,lster] = recog(filename,centervalue)
+function [samples,hzcrr,lster,samplefreq] = recog(filename,centervalue)
 
 [y, freq, bits] = wavread(filename,'native');
+
+samplefreq = freq;
 
 y = transpose(y);
 
@@ -12,19 +14,24 @@ x = [1:size(y,2)];
 
 %plot(x,y)
 
-number_of_samples = 40;
+number_of_samples_per_second = 40;
 
 y_1sec_sample = y(1:freq);
-framesize_broken = freq/number_of_samples;
-
-x2 = 1:framesize_broken:freq;
-y2 = zeros(number_of_samples,1);
-y3 = zeros(number_of_samples,1);
+framesize_broken = freq/number_of_samples_per_second;
 
 framesize = floor(framesize_broken);
+total_frames = floor(size(y,2)/framesize);
 
-for i=1:number_of_samples
-   y_frame = y_1sec_sample(((i-1)*framesize+1): i*framesize);
+x2 = 1:framesize_broken:total_frames*framesize;
+y2 = zeros(1,total_frames);
+y3 = zeros(1,total_frames);
+
+
+
+
+
+for i=1:total_frames
+   y_frame = y(((i-1)*framesize+1): i*framesize);
    
    y_frame_double = cast(y_frame, 'double');
    frame_ste = sum(abs(y_frame_double).^2); % norm(y_frame_double,Inf);
@@ -46,18 +53,20 @@ for i=1:number_of_samples
           frame_zcr = frame_zcr + 1; 
        end
        if lastposition == 2 && currentposition == 1
-           frame_zcr = frame_zcr + 1;
+          frame_zcr = frame_zcr + 1;
        end
        lastposition = currentposition;
-   end
-   
+   end   
+ 
    y2(i) = frame_zcr;
    y3(i) = frame_ste;
    
-   %fprintf('Frame %d: %d\n',i,frame_zcr)
+   %fprintf('Frame %d: ZCR: %d STE: %d\n',i,frame_zcr,frame_ste)
 end
 %%
 figure('Name','Feature: ZCR','NumberTitle','off')
+
+%fprintf('size x: %d, size y: %d, size x2: %d, size y2: %d\n',size(x,2),size(y,2),size(x2,2),size(y2,2));
 
 [AX,H1,H2] = plotyy(x,y,x2,y2);
 %%
@@ -75,7 +84,7 @@ legend('Sample-data','STE per frame');
 %bereken HZCRR
 %fprintf('Total zcr: %d\n',sum(y2));
 mean_zcr = mean(y2);
-avg_zcr = mean_zcr(1);
+avg_zcr = 1.5 * mean_zcr(1);
 %avg_zcr = sum(y2,2) / size(y2,2);
 higher = 0;
 lower = 0;
@@ -96,7 +105,7 @@ fprintf('Gemiddelde ZCR: %3.4f\nHoger dan gem: %d, Lager dan gem: %d\nHZCRR = %1
 %bereken L(STE)R
 
 mean_ste = mean(y3);
-avg_ste = mean_ste(1);
+avg_ste = 0.5 * mean_ste(1);
 %avg_ste = sum(y3,2) / size(y3,2);
 higher_ste = 0;
 lower_ste = 0;

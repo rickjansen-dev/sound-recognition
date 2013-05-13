@@ -8,7 +8,7 @@ function [result] = kmeanstest(M)
 opts = statset('Display','iter');
 
     
-[idx,ctrs] = kmeans(M,6,'Options',opts);
+[idx,ctrs] = kmeans(M,6,'Options',opts,'emptyaction','drop');
 
 figure('Name','K-means Plot','NumberTitle','off')
 

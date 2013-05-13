@@ -9,12 +9,12 @@ delete(findall(0,'Type','figure'));
 Wfilters = [4,16];
 alpha = 1;
 frames = 40;
-framesize = floor(44100/frames);
 Wshift = 0;
 
-fprintf('Selected frame size: %d', framesize);
+[samples, hzcrr, lster, freq] = recog(filename,0);
 
-[samples, hzcrr, lster] = recog(filename,0);
+framesize = floor(freq/frames);
+fprintf('Selected frame size: %d', framesize);
 
 total_frames = floor(size(samples,2)/framesize);
 
@@ -77,7 +77,7 @@ fprintf('size x: %d, size samples: %d, size x2: %d, size xm: %d\nnumber of filte
 
 %set(H2,'LineWidth',2,'Color','Red');
 %legend('Sample-data','ZCR per frame');
-player = audioplayer(transpose(samples), 44100);
+player = audioplayer(transpose(samples), freq);
 
 ylimits = get(gca, 'YLim'); % get the y-axis limits
 plotdata = [ylimits(1):0.1:ylimits(2)];
