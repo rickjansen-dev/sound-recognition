@@ -19,7 +19,7 @@ plot(M(idx==3,1),M(idx==3,2),'g.','MarkerSize',12)
 plot(M(idx==4,1),M(idx==4,2),'c.','MarkerSize',12)
 plot(ctrs(:,1),ctrs(:,2),'kx','MarkerSize',12,'LineWidth',2)
 plot(ctrs(:,1),ctrs(:,2),'ko','MarkerSize',12,'LineWidth',2)
-legend('Cluster 1','Cluster 2','Cluster 3','Cluster 4','Centroids','Location','NW')
+legend('Cluster 1','Cluster 2','Cluster 3','Cluster 4','Centroids','Location','NorthEastOutside')
 %%
 result = 1;
 

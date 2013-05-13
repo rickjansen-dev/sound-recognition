@@ -97,7 +97,7 @@ for k=1:size(y2,2)
     end
 end
 
-hzcrr = higher/lower;
+hzcrr = higher/(higher+lower);
 
 fprintf('Gemiddelde ZCR: %3.4f\nHoger dan gem: %d, Lager dan gem: %d\nHZCRR = %1.2f\n',avg_zcr,higher,lower,hzcrr);
 
@@ -118,7 +118,7 @@ for l=1:size(y3,2)
     end
 end
 
-lster = lower/higher;
+lster = lower_ste/(lower_ste+higher_ste);
 
 fprintf('Gemiddelde STE: %3.4f\nHoger dan gem: %d, Lager dan gem: %d\nLSTER = %1.2f\n',avg_ste,higher_ste,lower_ste,lster);
 
