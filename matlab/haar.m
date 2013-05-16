@@ -6,7 +6,7 @@ delete(findall(0,'Type','figure'));
 
 %define filters to use
 %Wfilters = [2,4,6,8,10,12,14,16,18,20];
-Wfilters = [4,16];
+Wfilters = [2,6,12,16,18,20];
 alpha = 1;
 frames = 40;
 Wshift = 0;
