@@ -1,12 +1,12 @@
-function [ output_args ] = haar( filename )
+function [ xmperframe ] = haar( filename )
 %HAAR calculates HAAR-like feature value vectors from a audio sample
 
 %close all figures
 delete(findall(0,'Type','figure'));
 
 %define filters to use
-%Wfilters = [2,4,6,8,10,12,14,16,18,20];
-Wfilters = [2,6,12,16,18,20];
+Wfilters = [2,4,6,8,10,12,14,16,18,20];
+%Wfilters = [2,6,12,16,18,20];
 alpha = 1;
 frames = 40;
 Wshift = 0;
@@ -14,7 +14,7 @@ Wshift = 0;
 [samples, hzcrr, lster, freq] = recog(filename,0);
 
 framesize = floor(freq/frames);
-fprintf('Selected frame size: %d', framesize);
+%fprintf('Selected frame size: %d', framesize);
 
 total_frames = floor(size(samples,2)/framesize);
 
@@ -67,30 +67,35 @@ end
 x = [1:size(samples,2)];           
             
 x2 = transpose(framesize:framesize:size(samples,2));
-%%
-figure('Name','Features: Haar','NumberTitle','off')
 
-fprintf('size x: %d, size samples: %d, size x2: %d, size xm: %d\nnumber of filtes: %d\n',size(x,2),size(samples,2),size(x2,1),size(xm,1),size(xm,2));
+% set output variables
+xmperframe = xm;
+%numfilters = size(Wfilters,2);
 
-[AX,H1,H2] = plotyy(x,samples,x2,xm);
-%%
-
-%set(H2,'LineWidth',2,'Color','Red');
-%legend('Sample-data','ZCR per frame');
-player = audioplayer(transpose(samples), freq);
-
-ylimits = get(gca, 'YLim'); % get the y-axis limits
-plotdata = [ylimits(1):0.1:ylimits(2)];
-hold on;
-hline = plot(repmat(0, size(plotdata)), plotdata, 'Color', 'c', 'LineWidth',2);
-
-player.TimerFcn = {@plotMarker, player, gcf, plotdata}; % timer callback function (defined below)
-player.TimerPeriod = 0.01;
-
-playblocking(player);
-
-%%
-kmeanstest(xm);
+% %%
+% figure('Name','Features: Haar','NumberTitle','off')
+% 
+% fprintf('size x: %d, size samples: %d, size x2: %d, size xm: %d\nnumber of filtes: %d\n',size(x,2),size(samples,2),size(x2,1),size(xm,1),size(xm,2));
+% 
+% [AX,H1,H2] = plotyy(x,samples,x2,xm);
+% %%
+% 
+% %set(H2,'LineWidth',2,'Color','Red');
+% %legend('Sample-data','ZCR per frame');
+% player = audioplayer(transpose(samples), freq);
+% 
+% ylimits = get(gca, 'YLim'); % get the y-axis limits
+% plotdata = [ylimits(1):0.1:ylimits(2)];
+% hold on;
+% hline = plot(repmat(0, size(plotdata)), plotdata, 'Color', 'c', 'LineWidth',2);
+% 
+% player.TimerFcn = {@plotMarker, player, gcf, plotdata}; % timer callback function (defined below)
+% player.TimerPeriod = 0.01;
+% 
+% playblocking(player);
+% 
+% %%
+% kmeanstest(xm);
 
 end
 
