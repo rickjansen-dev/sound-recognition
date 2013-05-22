@@ -1,6 +1,6 @@
 function [ xmperframe ] = haar( filename )
 %HAAR calculates HAAR-like feature value vectors from a audio sample
-
+%tic
 %close all figures
 delete(findall(0,'Type','figure'));
 
@@ -23,27 +23,33 @@ total_frames = floor(size(samples,2)/framesize);
 % the current frame to save memory (1-frame's worth of 32bit ints instead
 % of a complete 1sec sample, which would consume 32KB - the Arduino Due 
 % has 96 in total...)
-global IS;
+%global IS;
 Icurrent = 0;
 IS = zeros(size(samples,2)+framesize,1);
 
-%samples(1,2)
 
+%samples(1,2)
+%tic
+% IS = cumsum(samples);
+%toc
 for i=1:size(samples,2)
-    Icurrent = Icurrent + samples(1,i);
+   Icurrent = Icurrent + samples(1,i);
    IS(i) = Icurrent;
 end
 
 xm = zeros(total_frames,size(Wfilters,2));
 t=0;
-
+%toc
+%tic
 %for j=1:frames
 %floor(size(samples,2)/frames)-1
-for j=1:total_frames 
+for j=1:total_frames - 1
+   
    xmcurrent = zeros(size(Wfilters,2),1);
    for wf=1:length(Wfilters)
        Wshift = alpha * Wfilters(wf);
        xmcurrent_filter = 0;
+       %((framesize-Wfilters(wf))/Wshift + 1)
        for n=1:((framesize-Wfilters(wf))/Wshift + 1)
            t = j*framesize + n;
            %fprintf(' OneFilterValue: %d - %d - %d', IS(t+Wfilters(wf)),2 * IS(t+Wfilters(wf)/2),IS(t));
@@ -63,10 +69,10 @@ end
     % for each filter, do:
         %for each 'N'
             % filtertotal xm += filtervalue;
+%toc           
+%x = [1:size(samples,2)];           
             
-x = [1:size(samples,2)];           
-            
-x2 = transpose(framesize:framesize:size(samples,2));
+%x2 = transpose(framesize:framesize:size(samples,2));
 
 % set output variables
 xmperframe = xm;
