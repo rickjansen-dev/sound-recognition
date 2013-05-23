@@ -47,7 +47,7 @@ Y = [Y ; Y2];
 % The Haar-Like features are now used to create a KNN Model, so sound
 % samples can be tested against the model later on.
 
-mdl = create_knn_model(X,Y,3);
+mdl = create_knn_model(X,Y,23);
 
 %% Getting a list of test files
 % Getting a list of test files now
@@ -61,8 +61,9 @@ for i=1:size(test_files,1)
     Xmtest = calculate_haar(samples,Wfilters);
     
     values = cell(1,size(Xmtest,1));
+   
     for it = 1:size(Xmtest,1)
-        ivalue = predict(mdl,Xmtest(it,:));
+        %ivalue = predict(mdl,Xmtest(it,:));
         values(it) = predict(mdl,Xmtest(it,:));
 
         %fprintf('test %d: %s\n', it, cell2mat(predict(mdl, Xmtest(it,:)))); 
@@ -70,6 +71,7 @@ for i=1:size(test_files,1)
     end
 
     testvalues = strcmp('music',values);
+
     fprintf('Test: %s, Music: %3.1f%%, Speech: %3.1f%%\n',info.Filename,(sum(testvalues)/size(testvalues,2))*100,((size(testvalues,2)-sum(testvalues))/size(testvalues,2))*100);
 
     

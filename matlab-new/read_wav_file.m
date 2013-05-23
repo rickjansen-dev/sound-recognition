@@ -9,7 +9,7 @@ info = audioinfo(filename);
 
 framesize = floor(freq/frames);
 
-samples = transpose(reshape(y(1:framesize*frames),1102,[]));
+samples = transpose(reshape(y(1:framesize*frames*info.Duration),framesize,[]));
 
 end
 
