@@ -4,8 +4,8 @@
 
 %% Getting a list of training files
 % This will get a list of all training files and properly classifies them
-training_files_music = recursive_list_files('Z:\sounds\training\music','music');
-training_files_speech = recursive_list_files('Z:\sounds\training\speech','speech');
+training_files_music = recursive_list_files('Z:\sounds2\training\music','music');
+training_files_speech = recursive_list_files('Z:\sounds2\training\speech','speech');
 
 X = zeros(size(training_files_music,1)*40,10);
 Y = cell(size(training_files_music,1)*40,1);
@@ -27,6 +27,7 @@ for i=1:size(training_files_music,1)
     X((i-1)*size(Xmi,1)+1:(i)*size(Xmi,1),:) = Xmi;
     %X(i,:) = Xmi;
     %Y(i) = {'music'};
+    %Y((i-1)*size(Xmi,1)+1:(i)*size(Xmi,1)) = {'music'};
     Y((i-1)*size(Xmi,1)+1:(i)*size(Xmi,1)) = {'music'};
 end
 
@@ -38,16 +39,30 @@ for i=1:size(training_files_speech,1)
     %X2(i,:) = Xmi;
     %Y2(i) = {'speech'};   
     Y2((i-1)*size(Xmi,1)+1:(i)*size(Xmi,1)) = {'speech'};
+    %Y2((i-1)*size(Xmi,1)+1:(i)*size(Xmi,1)) = {'speech'};
 end
 
+Y1 = cell(size(X),1);
+Y2 = cell(size(X2),1);
+
+Y1(:) = {'music'};
+Y2(:) = {'speech'};
+
 X = [X ; X2];
-Y = [Y ; Y2];
+Y = [Y1 ; Y2];
+
+
+
+%testvalues = sum(strcmp('music',Y));
+%testvalues2 = sum(strcmp('speech',Y));
+
+%fprintf('size X: %dx%d, size Y: %dx%d\n size testvalue1:%d, size testvalue2: %d\n\n',size(X,1),size(X,2),size(Y,1),size(Y,2),testvalues,testvalues2);
 
 %% Creating the K-Nearest-Neighbours Model
 % The Haar-Like features are now used to create a KNN Model, so sound
 % samples can be tested against the model later on.
 
-mdl = create_knn_model(X,Y,23);
+mdl = create_knn_model(X,Y,1);
 
 %% Getting a list of test files
 % Getting a list of test files now

@@ -9,7 +9,12 @@ info = audioinfo(filename);
 
 framesize = floor(freq/frames);
 
-samples = transpose(reshape(y(1:framesize*frames*info.Duration),framesize,[]));
+%fprintf('framesize: %d, samples: %d, frames: %d, duration: %d, total: %d\n',framesize,size(y,1),frames,info.Duration,framesize*frames*info.Duration);
+
+multiplier = floor(framesize*frames*info.Duration/framesize);
+ymax = multiplier*framesize;
+
+samples = transpose(reshape(y(1:ymax),framesize,[]));
 
 end
 
