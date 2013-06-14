@@ -7,17 +7,17 @@ close all;
 %% Read files & Calculate Haar
 Wfilters = [2,4,6,8,10,12,14,16,18,20];
 
-[s, info, fs] = read_wav_file('Z:\sounds\temp\doorknob\1.wav',40);
+[s, info, fs] = read_wav_file('D:\matlab\sounds\temp\doorknob\1.wav',40);
 Xm1 = calculate_haar(s,Wfilters);
-[s, info, fs] = read_wav_file('Z:\sounds\temp\doorknob\2.wav',40);
+[s, info, fs] = read_wav_file('D:\matlab\sounds\temp\doorknob\2.wav',40);
 Xm2 = calculate_haar(s,Wfilters);
-[s, info, fs] = read_wav_file('Z:\sounds\temp\doorknob\3.wav',40);
+[s, info, fs] = read_wav_file('D:\matlab\sounds\temp\doorknob\3.wav',40);
 Xm3 = calculate_haar(s,Wfilters);
-[s, info, fs] = read_wav_file('Z:\sounds\temp\doorknob\4.wav',40);
+[s, info, fs] = read_wav_file('D:\matlab\sounds\temp\doorknob\4.wav',40);
 Xm4 = calculate_haar(s,Wfilters);
-[s, info, fs] = read_wav_file('Z:\sounds\temp\doorknob\5.wav',40);
+[s, info, fs] = read_wav_file('D:\matlab\sounds\temp\doorknob\5.wav',40);
 Xm5 = calculate_haar(s,Wfilters);
-[s, info, fs] = read_wav_file('Z:\sounds\temp\doorknob\6.other.wav',40);
+[s, info, fs] = read_wav_file('D:\matlab\sounds\temp\doorknob\6.other.wav',40);
 Xm6 = calculate_haar(s,Wfilters);
 
 %% Create plottable data

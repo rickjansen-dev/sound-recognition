@@ -3,7 +3,14 @@ function [ haar ] = calculate_haar( samples, filters )
 %   Per frame, for each filter, the Haar-Like filter value is calculated
 %   and added to the output matrix
 
-Wfilters = [2,4,6,8,10,12,14,16,18,20];
+%Wfilters = [2,8,14,20];
+Wfilters = filters;
+
+%sanity check
+if length(Wfilters) < 1
+    return
+end
+
 %Wfilters = [2,6,12,16,18,20];
 alpha = 1;
 Wshift = 0;

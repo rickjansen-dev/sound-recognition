@@ -1,4 +1,4 @@
-function [ samples, info, framesize ] = read_wav_file( filename, frames )
+function [ samples, info, framesize, y ] = read_wav_file( filename, frames )
 %READ_WAV_FILE Loads wav-file into memory and splits in frames
 %   Reads the wav-file from disk and returns the samples, split by frame
 
